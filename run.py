@@ -12,7 +12,6 @@ def calculate_value(userInput):
 
 
 def button_command(userInput1, userInput2, userInput3, result_var):
-
     # return_value = calculate_value(userInput)
     # result_var.set(return_value)
 
@@ -35,12 +34,18 @@ def button_command(userInput1, userInput2, userInput3, result_var):
     result_var.set(result)
 
 
+def button_command2(entry1, entry2, entry3):
+    entry1.delete(0, tk.END)
+    entry2.delete(0, tk.END)
+    entry3.delete(0, tk.END)
+
+
 def runWindow():
     # --- Main Tkinter setup ---
     custom_font = ("Helvetica", 18, "bold")
     root = tk.Tk()
     root.title("Enter the transaction:")
-
+    root.geometry('750x450')
     entry1_var = StringVar()
     entry2_var = StringVar()
     entry3_var = StringVar()
@@ -51,6 +56,7 @@ def runWindow():
                       text="Enter ODO:", padx=10, pady=10)
     label1.pack()
     entry1 = tk.Entry(frame1, fg="yellow", bg="blue", width=50, font=custom_font,
+                      justify="center",
                       textvariable=entry1_var)
     entry1.pack()
 
@@ -58,6 +64,7 @@ def runWindow():
                       text="Enter CHRONO1:", padx=10, pady=10)
     label2.pack()
     entry2 = tk.Entry(frame1, fg="yellow", bg="blue", width=50, font=custom_font,
+                      justify="center",
                       textvariable=entry2_var)
     entry2.pack()
 
@@ -65,6 +72,7 @@ def runWindow():
                       text="Enter MILES:", padx=10, pady=10)
     label3.pack()
     entry3 = tk.Entry(frame1, fg="yellow", bg="blue", width=50, font=custom_font,
+                      justify="center",
                       textvariable=entry3_var)
     entry3.pack()
 
@@ -75,14 +83,21 @@ def runWindow():
 
     result_label = tk.Label(info_frame, font=custom_font,
                             textvariable=result_text, padx=10, pady=10)
-    result_label.pack()
+    result_label.pack(side=tk.LEFT)
 
     action_button = tk.Button(info_frame, font=custom_font, text="Get Return Value",
                               command=lambda: button_command(entry1.get(),
                                                              entry2.get(),
                                                              entry3.get(),
                                                              result_text))
-    action_button.pack(pady=10)
+    action_button.pack(pady=10, side=tk.LEFT)
+
+    clear_button = tk.Button(info_frame, font=custom_font, text="Clear Values",
+                             command=lambda: button_command2(entry1,
+                                                             entry2,
+                                                             entry3,))
+    clear_button.pack(pady=10, side=tk.RIGHT)
+
     # Start the Tkinter event loop
     root.mainloop()
 

@@ -35,21 +35,21 @@ def runWindow():
     label1.pack()
     entry1 = tk.Entry(fg="yellow", bg="blue", width=50, master=root, font=custom_font,
                       textvariable=entry1_var)
-    entry1.pack()
+    entry1.pack(fill="both", expand=True)
 
     label2 = tk.Label(root, font=custom_font,
                       text="Enter CHRONO1:", padx=10, pady=10)
     label2.pack()
     entry2 = tk.Entry(fg="yellow", bg="blue", width=50, master=root, font=custom_font,
                       textvariable=entry2_var)
-    entry2.pack()
+    entry2.pack(fill="both", expand=True)
 
     label3 = tk.Label(root, font=custom_font,
                       text="Enter MILES:", padx=10, pady=10)
     label3.pack()
     entry3 = tk.Entry(fg="yellow", bg="blue", width=50, master=root, font=custom_font,
                       textvariable=entry3_var)
-    entry3.pack()
+    entry3.pack(fill="both", expand=True)
 
     result_text = tk.StringVar()
     result_text.set("Click to calculate fuel.")
