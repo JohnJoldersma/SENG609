@@ -5,8 +5,6 @@ import normalization
 import regression
 import decision_tree3
 
-user_entries_list = []
-
 
 def calculate_value(userInput):
     result = float(userInput) / 4.5
@@ -15,11 +13,8 @@ def calculate_value(userInput):
 
 def button_command(userInput1, userInput2, userInput3, result_var):
 
-    global user_entries_list
-    user_entries_list = [userInput1, userInput2, userInput3]
     # return_value = calculate_value(userInput)
     # result_var.set(return_value)
-    # return user_entries_list
 
     df, scaler = normalization.normalizeData()
 
@@ -45,42 +40,44 @@ def runWindow():
     custom_font = ("Helvetica", 18, "bold")
     root = tk.Tk()
     root.title("Enter the transaction:")
-    user_entries_list = []
+
     entry1_var = StringVar()
     entry2_var = StringVar()
     entry3_var = StringVar()
 
-    frame1 = tk.Frame(relief=tk.RAISED, master=root)
-    frame1.pack()
-    label1 = tk.Label(root, font=custom_font,
+    frame1 = tk.Frame(root, bg="lightgray", bd=2, relief="sunken")
+    frame1.pack(padx=10, pady=10, fill="both", expand=True)
+    label1 = tk.Label(frame1, font=custom_font, justify="center", anchor="center",
                       text="Enter ODO:", padx=10, pady=10)
     label1.pack()
-    entry1 = tk.Entry(fg="yellow", bg="blue", width=50, master=root, font=custom_font,
+    entry1 = tk.Entry(frame1, fg="yellow", bg="blue", width=50, font=custom_font,
                       textvariable=entry1_var)
     entry1.pack()
 
-    label2 = tk.Label(root, font=custom_font,
+    label2 = tk.Label(frame1, font=custom_font, justify="center", anchor="center",
                       text="Enter CHRONO1:", padx=10, pady=10)
     label2.pack()
-    entry2 = tk.Entry(fg="yellow", bg="blue", width=50, master=root, font=custom_font,
+    entry2 = tk.Entry(frame1, fg="yellow", bg="blue", width=50, font=custom_font,
                       textvariable=entry2_var)
     entry2.pack()
 
-    label3 = tk.Label(root, font=custom_font,
+    label3 = tk.Label(frame1, font=custom_font, justify="center", anchor="center",
                       text="Enter MILES:", padx=10, pady=10)
     label3.pack()
-    entry3 = tk.Entry(fg="yellow", bg="blue", width=50, master=root, font=custom_font,
+    entry3 = tk.Entry(frame1, fg="yellow", bg="blue", width=50, font=custom_font,
                       textvariable=entry3_var)
     entry3.pack()
 
+    info_frame = tk.LabelFrame(root, text="Return Data:", padx=10, pady=10)
+    info_frame.pack(padx=20, pady=20, fill="both", expand=True)
     result_text = tk.StringVar()
     result_text.set("Click to calculate fuel.")
 
-    result_label = tk.Label(root, font=custom_font,
+    result_label = tk.Label(info_frame, font=custom_font,
                             textvariable=result_text, padx=10, pady=10)
     result_label.pack()
 
-    action_button = tk.Button(root, font=custom_font, text="Get Return Value",
+    action_button = tk.Button(info_frame, font=custom_font, text="Get Return Value",
                               command=lambda: button_command(entry1.get(),
                                                              entry2.get(),
                                                              entry3.get(),
