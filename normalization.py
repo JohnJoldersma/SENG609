@@ -23,5 +23,5 @@ def normalizeData():
     # print(scaled_features)
     print(df)
 
-    return df
+    return df, scaler
 

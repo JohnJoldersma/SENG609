@@ -21,7 +21,7 @@ def button_command(userInput1, userInput2, userInput3, result_var):
     # result_var.set(return_value)
     # return user_entries_list
 
-    df = normalization.normalizeData()
+    df, scaler = normalization.normalizeData()
 
     # Create the X and y arrays
     X = df[["ODO", "CHRONO1", "MILES"]]
@@ -32,7 +32,7 @@ def button_command(userInput1, userInput2, userInput3, result_var):
     input_array = new_instance.reshape(1, -1)
 
     # run regression model
-    result = regression.runRegression(X, y, input_array)
+    result = regression.runRegression(X, y, input_array, scaler)
 
     # run decision tree
     decision_tree3.runTree(X, y)

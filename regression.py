@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import MinMaxScaler
 import joblib
 import datetime as dt
 
@@ -37,7 +38,7 @@ def encodeData(df):
     return encoded_df
 
 
-def runRegression(X, y, newInstance):
+def runRegression(X, y, newInstance, scaler):
 
     # Split the data set in a training set (75%) and a test set (25%)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
@@ -50,6 +51,7 @@ def runRegression(X, y, newInstance):
 
     # Save the trained model to a file so we can use it to make predictions later
     joblib.dump(model, 'model.pkl')
+    joblib.dump(scaler, 'scaler.joblib')
 
     # Report how well the model is performing
     print("Model training results:")
@@ -61,10 +63,11 @@ def runRegression(X, y, newInstance):
     # Report an error rate on the test set
     mse_test = mean_absolute_error(y_test, model.predict(X_test))
     print(f" - Test Set Error: {mse_test}")
-
+    # print(f"Number of outputs expected by the model: {model.n_outputs_}")
     model = joblib.load('model.pkl')
-
-    output_values = model.predict(newInstance)
+    loaded_scaler = joblib.load('scaler.joblib')
+    new_data_scaled = loaded_scaler.transform(newInstance)
+    output_values = model.predict(new_data_scaled)
 
     predicted_value = output_values[0]
 
